@@ -23,10 +23,14 @@ class ValueSeeder extends Seeder
         ]);
         Value::create([
             'attribute_id' => '2',
-            'name' => ['uz' => 'Metal', 'en' => 'Metalhic']
+            'name' => ['uz' => 'o`rta ', 'en' => 'medium']
         ]);
         Value::create([
             'attribute_id' => '2',
+            'name' => ['uz' => '3x', 'en' => '3x']
+        ]);
+        Value::create([
+            'attribute_id' => '3',
             'name' => ['uz' => 'Plastik', 'en' => 'Plastic']
         ]);
     }

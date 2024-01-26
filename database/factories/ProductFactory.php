@@ -27,8 +27,7 @@ class ProductFactory extends Factory
             'description' => [
                 'uz' => fake()->paragraph(5),
                 'en' => fake()->paragraph(5)
-            ]
-             ,
+            ],
         ];
     }
 }
