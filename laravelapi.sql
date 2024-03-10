@@ -110,7 +110,7 @@ CREATE TABLE `migrations` (
   `migration` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `batch` int NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -119,7 +119,7 @@ CREATE TABLE `migrations` (
 
 LOCK TABLES `migrations` WRITE;
 /*!40000 ALTER TABLE `migrations` DISABLE KEYS */;
-INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_reset_tokens_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2024_01_24_070000_create_categories_table',1),(6,'2024_01_24_082905_create_products_table',1),(7,'2024_01_24_082951_create_orders_table',1),(8,'2024_01_24_083010_create_roles_table',1),(9,'2024_01_24_083019_create_settings_table',1),(10,'2024_01_24_083032_create_reviews_table',1),(11,'2024_01_24_095439_create_role_user_table',1),(12,'2024_01_24_105104_create_attributes_table',1),(13,'2024_01_24_105123_create_stocks_table',1),(14,'2024_01_24_105143_create_values_table',1);
+INSERT INTO `migrations` VALUES (1,'2014_10_12_000000_create_users_table',1),(2,'2014_10_12_100000_create_password_reset_tokens_table',1),(3,'2019_08_19_000000_create_failed_jobs_table',1),(4,'2019_12_14_000001_create_personal_access_tokens_table',1),(5,'2024_01_24_070000_create_categories_table',1),(6,'2024_01_24_082905_create_products_table',1),(7,'2024_01_24_082951_create_orders_table',1),(8,'2024_01_24_083010_create_roles_table',1),(9,'2024_01_24_083019_create_settings_table',1),(10,'2024_01_24_083032_create_reviews_table',1),(11,'2024_01_24_095439_create_role_user_table',1),(12,'2024_01_24_105104_create_attributes_table',1),(13,'2024_01_24_105123_create_stocks_table',1),(14,'2024_01_24_105143_create_values_table',1),(15,'2024_03_10_181706_create_product_user_table',2);
 /*!40000 ALTER TABLE `migrations` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -192,7 +192,7 @@ CREATE TABLE `personal_access_tokens` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `personal_access_tokens_token_unique` (`token`),
   KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -201,7 +201,39 @@ CREATE TABLE `personal_access_tokens` (
 
 LOCK TABLES `personal_access_tokens` WRITE;
 /*!40000 ALTER TABLE `personal_access_tokens` DISABLE KEYS */;
+INSERT INTO `personal_access_tokens` VALUES (1,'App\\Models\\User',4,'ebony.marvin@example.net','c41e55a670db54164b738032edf59badd5bb9a31f36da77a42a9938ed05e926b','[\"*\"]',NULL,NULL,'2024-03-10 15:02:44','2024-03-10 15:02:44'),(2,'App\\Models\\User',4,'ebony.marvin@example.net','2a4c4ae2822b7a6d7e5e213457793debff477d62d512eec5bffc790682222af9','[\"*\"]',NULL,NULL,'2024-03-10 15:04:04','2024-03-10 15:04:04'),(3,'App\\Models\\User',4,'ebony.marvin@example.net','828cbe49704b7ff2f1878330b7dd9a697bfcbb27d88eda47a711867e92c632b6','[\"*\"]',NULL,NULL,'2024-03-10 15:09:27','2024-03-10 15:09:27'),(4,'App\\Models\\User',4,'ebony.marvin@example.net','868984facd3df504a677dfff01f88bff1d1e54b41f1b2bcd564897191dd83156','[\"*\"]',NULL,NULL,'2024-03-10 15:09:33','2024-03-10 15:09:33'),(5,'App\\Models\\User',5,'bechtelar.brianne@example.org','f972045c716c737ce1fc213b8131f4a63ecfdffd36148230f6be30af902ebfb9','[\"*\"]','2024-03-10 16:50:01',NULL,'2024-03-10 15:47:07','2024-03-10 16:50:01');
 /*!40000 ALTER TABLE `personal_access_tokens` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `product_user`
+--
+
+DROP TABLE IF EXISTS `product_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `product_user` (
+  `id` bigint unsigned NOT NULL AUTO_INCREMENT,
+  `product_id` bigint unsigned NOT NULL,
+  `user_id` bigint unsigned NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `product_user_product_id_foreign` (`product_id`),
+  KEY `product_user_user_id_foreign` (`user_id`),
+  CONSTRAINT `product_user_product_id_foreign` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `product_user_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `product_user`
+--
+
+LOCK TABLES `product_user` WRITE;
+/*!40000 ALTER TABLE `product_user` DISABLE KEYS */;
+INSERT INTO `product_user` VALUES (1,5,5,NULL,NULL),(2,4,5,NULL,NULL),(3,15,5,NULL,NULL),(4,2,5,NULL,NULL);
+/*!40000 ALTER TABLE `product_user` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -442,4 +474,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2024-01-28 11:19:43
+-- Dump completed on 2024-03-11  0:54:07
